@@ -1,0 +1,35 @@
+{
+    "name": "serfhos/my-configurable-routes",
+    "description": "TYPO3 Extension: Configurable Route Type",
+    "type": "typo3-cms-extension",
+
+    "keywords": [
+        "TYPO3",
+        "CMS",
+        "Serfhos",
+        "Benjamin Serfhos",
+        "Extbase",
+        "Redirects"
+    ],
+    "homepage": "https://github.com/bmoex/my_configurable_routes",
+    "license": "LGPL-3.0+",
+    "require": {
+        "typo3/cms-core": ">=9.5.0 <10.0.0",
+        "typo3/cms-frontend": ">9.5.0 <10.0.0",
+        "typo3/cms-scheduler": ">=9.5.0 <10.0.0"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Serfhos\\MyConfigurableRoutes\\": "Classes/"
+        }
+    },
+
+    "authors": [
+        {
+            "name": "Benjamin Serfhos",
+            "email": "benjamin@serfhos.com",
+            "homepage": "http://serfhos.com"
+        }
+    ]
+}
