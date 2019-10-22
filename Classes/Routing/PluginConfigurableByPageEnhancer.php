@@ -4,10 +4,12 @@ namespace Serfhos\MyConfigurableRoutes\Routing;
 
 use Serfhos\MyConfigurableRoutes\Domain\DataTransferObject\ConfigurableRouteEnhancer;
 use Serfhos\MyConfigurableRoutes\Exception\InvalidConfigurationException;
+use Serfhos\MyConfigurableRoutes\Service\ConfigurableRouteSiteService;
 use TYPO3\CMS\Core\Routing\Enhancer\PluginEnhancer;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Routing\Route;
 use TYPO3\CMS\Core\Routing\RouteCollection;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Used for plugins like EXT:news.
@@ -108,12 +110,7 @@ class PluginConfigurableByPageEnhancer extends PluginEnhancer
             return false;
         }
 
-        try {
-            $page = $route->getOption('_page') ?? [];
-
-            return $page['my_configurable_routes_type'] === $this->enhancer->getKey();
-        } catch (\Exception $e) {
-            return false;
-        }
+        return GeneralUtility::makeInstance(ConfigurableRouteSiteService::class)
+            ->enhancerIsEnabledByRoute($this->enhancer, $route);
     }
 }
