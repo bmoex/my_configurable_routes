@@ -12,6 +12,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ConfigurableRouteSiteService implements SingletonInterface
 {
+    /** @var array */
     protected $pageTypes = [];
 
     /**
