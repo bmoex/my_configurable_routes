@@ -8,8 +8,8 @@
         "CMS",
         "Serfhos",
         "Benjamin Serfhos",
-        "Extbase",
-        "Redirects"
+        "Dynamic",
+        "Routing"
     ],
     "homepage": "https://github.com/bmoex/my_configurable_routes",
     "license": "LGPL-3.0+",

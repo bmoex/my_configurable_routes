@@ -43,7 +43,7 @@ class ConfigurableRouteEnhancer
      */
     public function getKey(): string
     {
-        return $this->row['configurable']['key'] ?? '';
+        return $this->row['configurable']['key'] ?? md5(json_encode($this->row));
     }
 
     /**
