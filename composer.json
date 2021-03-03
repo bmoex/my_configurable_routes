@@ -13,6 +13,11 @@
     ],
     "homepage": "https://github.com/bmoex/my_configurable_routes",
     "license": "LGPL-3.0+",
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "my_configurable_routes"
+        }
+    },
     "require": {
         "typo3/cms-core": "^9.5 || ^10.4.10 || ^11.0",
         "typo3/cms-frontend": "^9.5 || ^10.4.10 || ^11.0"
