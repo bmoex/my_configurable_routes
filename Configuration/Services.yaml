@@ -1,0 +1,14 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Serfhos\MyConfigurableRoutes\:
+    resource: '../Classes/*'
+
+  Serfhos\MyConfigurableRoutes\Service\ConfigurableRouteSiteService:
+    public: true
+
+  Serfhos\MyConfigurableRoutes\Service\TableConfigurationService:
+    public: true

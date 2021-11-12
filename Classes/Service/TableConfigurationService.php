@@ -12,29 +12,40 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class TableConfigurationService
 {
+    /** @var \TYPO3\CMS\Core\Site\SiteFinder */
+    protected $siteFinder;
+
+    /** @var \Serfhos\MyConfigurableRoutes\Service\ConfigurableRouteSiteService */
+    protected $configurableRouteSiteService;
+
+    /**
+     * @param  \Serfhos\MyConfigurableRoutes\Service\ConfigurableRouteSiteService  $configurableRouteSiteService
+     */
+    public function __construct(SiteFinder $siteFinder, ConfigurableRouteSiteService $configurableRouteSiteService)
+    {
+        $this->siteFinder = $siteFinder;
+        $this->configurableRouteSiteService = $configurableRouteSiteService;
+    }
+
     /**
      * Add configurable route enhancers to $parameters[&items]
      *
      * @param  array  $parameters
-     * @return array
+     * @return void
      * @used-by EXT:my_configurable_routes/Configuration/TCA/Overrides/pages.php -> my_configurable_routes_type
      */
-    public function addPluginRouteOptions(array $parameters): array
+    public function addPluginRouteOptions(array $parameters): void
     {
-        $items = &$parameters['items'] ?? [];
-
         $site = $this->getSiteForRow($parameters['row']);
         if ($site) {
-            foreach ($this->getConfigurableRouteSiteService()->getAllRouteEnhancers($site) as $enhancer) {
-                $items[] = [
+            foreach ($this->configurableRouteSiteService->getAllRouteEnhancers($site) as $enhancer) {
+                $parameters['items'][] = [
                     $enhancer->getLabel(),
                     $enhancer->getKey(),
                     $enhancer->getIcon(),
                 ];
             }
         }
-
-        return $items;
     }
 
     /**
@@ -43,19 +54,13 @@ class TableConfigurationService
      */
     protected function getSiteForRow(array $row): ?Site
     {
-        $site = null;
         try {
-            $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
-            if ($row['pid'] === 0) {
-                $site = $siteFinder->getSiteByRootPageId($row['uid']);
-            } elseif ($row['uid'] > 0) {
-                $site = $siteFinder->getSiteByPageId($row['uid']);
-            }
+            return $this->siteFinder->getSiteByPageId($row['uid']);
         } catch (SiteNotFoundException $e) {
             // Never throw site not found exception
         }
 
-        return $site;
+        return null;
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-$EM_CONF[$_EXTKEY] = [
+$EM_CONF['my_configurable_routes'] = [
     'title' => 'Configurable Routes',
     'description' => 'Configure specific RouteEnhancers in page properties for url handling.',
     'category' => 'misc',
@@ -9,10 +9,10 @@ $EM_CONF[$_EXTKEY] = [
     'state' => 'stable',
     'uploadFolder' => false,
     'clearCacheOnLoad' => true,
-    'version' => '1.0.3',
+    'version' => '1.1.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '9.5.0-9.5.99',
+            'typo3' => '9.5.0-11.5.99',
         ],
         'conflicts' => [],
         'suggests' => [],
