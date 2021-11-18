@@ -6,6 +6,7 @@ use TYPO3\CMS\Core\Exception\SiteNotFoundException;
 use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\MathUtility;
 
 /**
  * TCA: itemsProcFunc option items
@@ -55,7 +56,9 @@ class TableConfigurationService
     protected function getSiteForRow(array $row): ?Site
     {
         try {
-            return $this->siteFinder->getSiteByPageId($row['uid']);
+            $id = MathUtility::canBeInterpretedAsInteger($row['uid']) ? $row['uid'] : $row['pid'];
+
+            return $this->siteFinder->getSiteByPageId((int)$id);
         } catch (SiteNotFoundException $e) {
             // Never throw site not found exception
         }
