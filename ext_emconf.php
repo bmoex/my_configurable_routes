@@ -9,10 +9,10 @@ $EM_CONF['my_configurable_routes'] = [
     'state' => 'stable',
     'uploadFolder' => false,
     'clearCacheOnLoad' => true,
-    'version' => '1.1.2',
+    'version' => '1.2.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '9.5.0-11.5.99',
+            'typo3' => '12.2.0-12.2.99',
         ],
         'conflicts' => [],
         'suggests' => [],

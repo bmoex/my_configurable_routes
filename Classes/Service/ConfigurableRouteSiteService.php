@@ -12,13 +12,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ConfigurableRouteSiteService implements SingletonInterface
 {
-    /** @var array */
-    protected $pageTypes = [];
+    protected array $pageTypes = [];
 
-    /**
-     * @param  \TYPO3\CMS\Core\Site\Entity\Site  $site
-     * @return \Serfhos\MyConfigurableRoutes\Domain\DataTransferObject\ConfigurableRouteEnhancer[]
-     */
     public function getAllRouteEnhancers(Site $site): array
     {
         $pluginConfigurableByPageEnhancers = [];
@@ -31,11 +26,6 @@ class ConfigurableRouteSiteService implements SingletonInterface
         return $pluginConfigurableByPageEnhancers;
     }
 
-    /**
-     * @param  \TYPO3\CMS\Core\Routing\Route  $route
-     * @param  \Serfhos\MyConfigurableRoutes\Domain\DataTransferObject\ConfigurableRouteEnhancer  $enhancer
-     * @return bool
-     */
     public function enhancerIsEnabledByRoute(ConfigurableRouteEnhancer $enhancer, Route $route): bool
     {
         try {
@@ -48,13 +38,9 @@ class ConfigurableRouteSiteService implements SingletonInterface
         }
     }
 
-    /**
-     * @param  array  $page
-     * @return string|null
-     */
     protected function getTypeForPage(array $page): ?string
     {
-        $identifier = $page['uid'];
+        $identifier = $page['uid'] ?? 0;
         if (!isset($this->pageTypes[$identifier])) {
             if (isset($page['my_configurable_routes_type'])) {
                 $this->pageTypes[$identifier] = $page['my_configurable_routes_type'];

@@ -35,12 +35,8 @@ class PluginConfigurableByPageEnhancer extends PluginEnhancer
 {
     public const TYPE = 'PluginConfigurableByPage';
 
-    /** @var \Serfhos\MyConfigurableRoutes\Domain\DataTransferObject\ConfigurableRouteEnhancer */
-    protected $enhancer;
+    protected ConfigurableRouteEnhancer $enhancer;
 
-    /**
-     * @param  array  $configuration
-     */
     public function __construct(array $configuration)
     {
         parent::__construct($configuration);
@@ -51,12 +47,6 @@ class PluginConfigurableByPageEnhancer extends PluginEnhancer
         }
     }
 
-    /**
-     * @param  \TYPO3\CMS\Core\Routing\Route  $route
-     * @param  array  $results
-     * @param  array  $remainingQueryParameters
-     * @return \TYPO3\CMS\Core\Routing\PageArguments
-     */
     public function buildResult(Route $route, array $results, array $remainingQueryParameters = []): PageArguments
     {
         if ($this->isConfiguredForPage($route)) {
@@ -72,8 +62,6 @@ class PluginConfigurableByPageEnhancer extends PluginEnhancer
 
     /**
      * Extends route collection with all routes. Used during URL resolving.
-     *
-     * @param  \TYPO3\CMS\Core\Routing\RouteCollection  $collection
      */
     public function enhanceForMatching(RouteCollection $collection): void
     {
@@ -87,9 +75,6 @@ class PluginConfigurableByPageEnhancer extends PluginEnhancer
     /**
      * Extends route collection with routes that are relevant for given
      * parameters. Used during URL generation.
-     *
-     * @param  \TYPO3\CMS\Core\Routing\RouteCollection  $collection
-     * @param  array  $parameters
      */
     public function enhanceForGeneration(RouteCollection $collection, array $parameters): void
     {
@@ -100,10 +85,6 @@ class PluginConfigurableByPageEnhancer extends PluginEnhancer
         }
     }
 
-    /**
-     * @param  \TYPO3\CMS\Core\Routing\Route  $route
-     * @return bool
-     */
     protected function isConfiguredForPage(Route $route): bool
     {
         if ($this->enhancer === null) {

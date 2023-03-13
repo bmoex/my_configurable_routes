@@ -13,15 +13,9 @@ use TYPO3\CMS\Core\Utility\MathUtility;
  */
 class TableConfigurationService
 {
-    /** @var \TYPO3\CMS\Core\Site\SiteFinder */
-    protected $siteFinder;
+    protected SiteFinder $siteFinder;
+    protected ConfigurableRouteSiteService $configurableRouteSiteService;
 
-    /** @var \Serfhos\MyConfigurableRoutes\Service\ConfigurableRouteSiteService */
-    protected $configurableRouteSiteService;
-
-    /**
-     * @param  \Serfhos\MyConfigurableRoutes\Service\ConfigurableRouteSiteService  $configurableRouteSiteService
-     */
     public function __construct(SiteFinder $siteFinder, ConfigurableRouteSiteService $configurableRouteSiteService)
     {
         $this->siteFinder = $siteFinder;
@@ -31,8 +25,6 @@ class TableConfigurationService
     /**
      * Add configurable route enhancers to $parameters[&items]
      *
-     * @param  array  $parameters
-     * @return void
      * @used-by EXT:my_configurable_routes/Configuration/TCA/Overrides/pages.php -> my_configurable_routes_type
      */
     public function addPluginRouteOptions(array $parameters): void
@@ -49,10 +41,6 @@ class TableConfigurationService
         }
     }
 
-    /**
-     * @param  array  $row
-     * @return \TYPO3\CMS\Core\Site\Entity\Site|null
-     */
     protected function getSiteForRow(array $row): ?Site
     {
         try {
@@ -66,9 +54,6 @@ class TableConfigurationService
         return null;
     }
 
-    /**
-     * @return \Serfhos\MyConfigurableRoutes\Service\ConfigurableRouteSiteService
-     */
     protected function getConfigurableRouteSiteService(): ConfigurableRouteSiteService
     {
         return GeneralUtility::makeInstance(ConfigurableRouteSiteService::class);
