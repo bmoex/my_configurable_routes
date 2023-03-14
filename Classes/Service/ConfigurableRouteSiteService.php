@@ -63,7 +63,7 @@ class ConfigurableRouteSiteService implements SingletonInterface
                     )
                     ->execute();
 
-                $this->pageTypes[$identifier] = $statement->fetchColumn();
+                $this->pageTypes[$identifier] = $statement->fetchOne();
             }
         }
 
