@@ -3,7 +3,6 @@
 namespace Serfhos\MyConfigurableRoutes\Domain\DataTransferObject;
 
 use Serfhos\MyConfigurableRoutes\Exception\InvalidConfigurationException;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
@@ -31,7 +30,7 @@ class ConfigurableRouteEnhancer
     public function getLabel(): string
     {
         $label = $this->row['configurable']['label'] ?? '';
-        if (GeneralUtility::isFirstPartOfStr($label, 'LLL:')) {
+        if (str_starts_with($label, 'LLL:')) {
             $label = LocalizationUtility::translate($label);
         }
 
