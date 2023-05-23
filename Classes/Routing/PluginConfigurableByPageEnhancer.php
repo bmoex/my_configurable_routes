@@ -87,10 +87,6 @@ class PluginConfigurableByPageEnhancer extends PluginEnhancer
 
     protected function isConfiguredForPage(Route $route): bool
     {
-        if ($this->enhancer === null) {
-            return false;
-        }
-
         return GeneralUtility::makeInstance(ConfigurableRouteSiteService::class)
             ->enhancerIsEnabledByRoute($this->enhancer, $route);
     }

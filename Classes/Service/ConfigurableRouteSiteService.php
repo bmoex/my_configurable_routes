@@ -61,7 +61,7 @@ class ConfigurableRouteSiteService implements SingletonInterface
                             $queryBuilder->createNamedParameter($identifier, \PDO::PARAM_INT)
                         )
                     )
-                    ->execute();
+                    ->executeQuery();
 
                 $this->pageTypes[$identifier] = $statement->fetchOne();
             }

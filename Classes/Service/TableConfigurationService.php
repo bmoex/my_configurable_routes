@@ -5,7 +5,6 @@ namespace Serfhos\MyConfigurableRoutes\Service;
 use TYPO3\CMS\Core\Exception\SiteNotFoundException;
 use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Site\SiteFinder;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
 
 /**
@@ -27,15 +26,15 @@ class TableConfigurationService
      *
      * @used-by EXT:my_configurable_routes/Configuration/TCA/Overrides/pages.php -> my_configurable_routes_type
      */
-    public function addPluginRouteOptions(array $parameters): void
+    public function addPluginRouteOptions(array &$parameters): void
     {
-        $site = $this->getSiteForRow($parameters['row']);
+        $site = $this->getSiteForRow($parameters['row'] ?? []);
         if ($site) {
             foreach ($this->configurableRouteSiteService->getAllRouteEnhancers($site) as $enhancer) {
                 $parameters['items'][] = [
-                    $enhancer->getLabel(),
-                    $enhancer->getKey(),
-                    $enhancer->getIcon(),
+                    'label' => $enhancer->getLabel(),
+                    'value' => $enhancer->getKey(),
+                    'icon' => $enhancer->getIcon(),
                 ];
             }
         }
@@ -43,6 +42,10 @@ class TableConfigurationService
 
     protected function getSiteForRow(array $row): ?Site
     {
+        if (empty($row)) {
+            return null;
+        }
+
         try {
             $id = MathUtility::canBeInterpretedAsInteger($row['uid']) ? $row['uid'] : $row['pid'];
 
@@ -52,10 +55,5 @@ class TableConfigurationService
         }
 
         return null;
-    }
-
-    protected function getConfigurableRouteSiteService(): ConfigurableRouteSiteService
-    {
-        return GeneralUtility::makeInstance(ConfigurableRouteSiteService::class);
     }
 }

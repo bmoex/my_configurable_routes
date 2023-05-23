@@ -16,9 +16,8 @@ call_user_func(static function (string $table): void {
                 'items' => [
                     // Similar to 'module' page option to display empty element if no selection is made
                     [
-                        '',
-                        '',
-                        '',
+                        'label' => '',
+                        'value' => '',
                     ],
                 ],
                 'default' => '',
