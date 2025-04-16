@@ -56,10 +56,7 @@ class ConfigurableRouteSiteService implements SingletonInterface
                     ->select('my_configurable_routes_type')
                     ->from('pages')
                     ->where(
-                        $queryBuilder->expr()->eq(
-                            'uid',
-                            $queryBuilder->createNamedParameter($identifier, \PDO::PARAM_INT)
-                        )
+                        $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($identifier, \PDO::PARAM_INT))
                     )
                     ->executeQuery();
 
