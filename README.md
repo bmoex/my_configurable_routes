@@ -10,7 +10,7 @@ Add the following snippet to your Site config.yaml
 ```yaml
 routeEnhancers:
   ExampleDetailPlugin:
-    type: PluginConfigurableByPage
+    type: PluginConfigurableByPage # or ExtbaseConfigurableByPage
     configurable:
       key: example # unique for this route enhancer
       label: 'Detail page of Example plugin' # or LLL:EXT: reference
@@ -27,8 +27,11 @@ routeEnhancers:
         routeFieldResult: '{uid}-{path_segment}'
 ```
 This is now available as a page property under `Appearance` tab.
-It is added to the palette `Use as Container` with the label `Contains URL Routing
-`. 
+It is added to the palette `Use as Container` with the label `Contains URL Routing`.
+
+For additional configuration see:
+- PluginConfigurableByPage: https://docs.typo3.org/permalink/t3coreapi:routing-plugin-enhancer
+- ExtbaseConfigurableByPage: https://docs.typo3.org/permalink/t3coreapi:routing-extbase-plugin-enhancer
 
 **_Screenshots:_**
 
