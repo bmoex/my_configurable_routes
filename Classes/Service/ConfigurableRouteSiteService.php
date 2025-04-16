@@ -3,7 +3,9 @@
 namespace Serfhos\MyConfigurableRoutes\Service;
 
 use Serfhos\MyConfigurableRoutes\Domain\DataTransferObject\ConfigurableRouteEnhancer;
+use Serfhos\MyConfigurableRoutes\Routing\ExtbaseConfigurableByPageEnhancer;
 use Serfhos\MyConfigurableRoutes\Routing\PluginConfigurableByPageEnhancer;
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Routing\Route;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -18,7 +20,7 @@ class ConfigurableRouteSiteService implements SingletonInterface
     {
         $pluginConfigurableByPageEnhancers = [];
         foreach ($site->getConfiguration()['routeEnhancers'] ?? [] as $enhancer) {
-            if ($enhancer['type'] === PluginConfigurableByPageEnhancer::TYPE) {
+            if (in_array($enhancer['type'], [PluginConfigurableByPageEnhancer::TYPE, ExtbaseConfigurableByPageEnhancer::TYPE], true)) {
                 $pluginConfigurableByPageEnhancers[] = new ConfigurableRouteEnhancer($enhancer);
             }
         }
@@ -56,7 +58,10 @@ class ConfigurableRouteSiteService implements SingletonInterface
                     ->select('my_configurable_routes_type')
                     ->from('pages')
                     ->where(
-                        $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($identifier, \PDO::PARAM_INT))
+                        $queryBuilder->expr()->eq(
+                            'uid',
+                            $queryBuilder->createNamedParameter($identifier, Connection::PARAM_INT)
+                        )
                     )
                     ->executeQuery();
 

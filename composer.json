@@ -19,7 +19,6 @@
         }
     },
     "require": {
-        "ext-pdo": "*",
         "typo3/cms-core": "^13.4",
         "typo3/cms-frontend": "^13.4"
     },
