@@ -6,7 +6,6 @@ use Serfhos\MyConfigurableRoutes\Domain\DataTransferObject\ConfigurableRouteEnha
 use Serfhos\MyConfigurableRoutes\Exception\InvalidConfigurationException;
 use Serfhos\MyConfigurableRoutes\Service\ConfigurableRouteSiteService;
 use TYPO3\CMS\Core\Routing\Enhancer\PluginEnhancer;
-use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Routing\Route;
 use TYPO3\CMS\Core\Routing\RouteCollection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -45,19 +44,6 @@ class PluginConfigurableByPageEnhancer extends PluginEnhancer
         } catch (InvalidConfigurationException $e) {
             // Bypass exception when enhancer is not configured correctly
         }
-    }
-
-    public function buildResult(Route $route, array $results, array $remainingQueryParameters = []): PageArguments
-    {
-        if ($this->isConfiguredForPage($route)) {
-            return parent::buildResult($route, $results, $remainingQueryParameters);
-        }
-
-        $page = $route->getOption('_page');
-        $pageId = (int)($page['l10n_parent'] > 0 ? $page['l10n_parent'] : $page['uid']);
-        $type = $this->resolveType($route, $remainingQueryParameters);
-
-        return new PageArguments($pageId, $type, $results, [], $remainingQueryParameters);
     }
 
     /**

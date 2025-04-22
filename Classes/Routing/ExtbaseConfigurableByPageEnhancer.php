@@ -89,19 +89,6 @@ class ExtbaseConfigurableByPageEnhancer extends ExtbasePluginEnhancer
         }
     }
 
-    public function buildResult(Route $route, array $results, array $remainingQueryParameters = []): PageArguments
-    {
-        if ($this->isConfiguredForPage($route)) {
-            return parent::buildResult($route, $results, $remainingQueryParameters);
-        }
-
-        $page = $route->getOption('_page');
-        $pageId = (int)($page['l10n_parent'] > 0 ? $page['l10n_parent'] : $page['uid']);
-        $type = $this->resolveType($route, $remainingQueryParameters);
-
-        return new PageArguments($pageId, $type, $results, [], $remainingQueryParameters);
-    }
-
     /**
      * Extends route collection with all routes. Used during URL resolving.
      */
