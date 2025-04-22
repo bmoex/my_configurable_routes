@@ -21,6 +21,11 @@ use TYPO3\CMS\Extbase\Routing\ExtbasePluginEnhancer;
  * routeEnhancers:
  *   NewsPlugin:
  *     type: ExtbaseConfigurableByPage
+ *     configurable:
+ *       # Unique key
+ *       key: news
+ *       # Displayed label in page options
+ *       label: Courses
  *     limitToPages: [13]
  *     extension: News
  *     plugin: Pi1
